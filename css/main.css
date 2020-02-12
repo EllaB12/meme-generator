@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'impact';
+    src: url(impact.ttf);
+}
+
+canvas {
+    display: block;
+}
+
+.canvas-container {
+    display: none;
+    grid-row: 1/-1;
+    grid-column: 1/2;
+}
+
+.text-input {
+    display: none;
+}
+
+.image-gallery {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 200px;
+    gap: 10px;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 20px;
+}
+
+.btn-selectors {
+    display: none;
+    grid-row: 1/-1;
+    grid-column: 2/-1;
+}
+
+.btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.increase-icon, .decrease-icon {
+    width: 28px;
+    height: 30px;
+}
+
+.up-icon, .down-icon, .switch-line-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.align-left-icon, .align-center-icon, .align-right-icon {
+    width: 30px;
+    height: 25px;
+}
+
+.input-color-container {
+    position: relative;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border: solid 2px #ddd;
+    border-radius: 40px;
+}
+
+.input-color {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 56px;
+    height: 56px;
+    border: none;
+}

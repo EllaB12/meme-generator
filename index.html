@@ -9,8 +9,42 @@
     <title>Meme Generator</title>
 </head>
 
-<body>
+<body onload="onInit()">
 
+    <div class="grid-container">
+        <div class="canvas-container">
+            <canvas id="canvas" height="500" width="500" style="border: 1px solid black;"></canvas>
+        </div>
+
+        <div class="btn-selectors">
+            <input oninput="onWriteText()" class="text-input" type="text" placeholder="Write here your text">
+
+            <button class="btn increase-btn" onclick="onIncreaseTxt()"><img class="increase-icon"
+                    src="img/ICONS/increase font - icon.png"></button>
+            <button class="btn decrease-btn" onclick="onDecreaseTxt()"><img class="decrease-icon"
+                    src="img/ICONS/decrease font - icon.png"></button>
+            <button class="btn up-btn" onclick="onUpTxt()"><img class="up-icon"
+                    src="img/ICONS/up-arrow-icon.png"></button>
+            <button class="btn down-btn" onclick="onDownTxt()"><img class="down-icon"
+                    src="img/ICONS/down-arrow-icon.png"></button>
+            <button class="btn switch-line-btn" onclick="onSwitchLine()"><img class="switch-line-icon"
+                    src="img/ICONS/up-and-down-arrows.png"></button>
+            <button class="btn align-left" onclick="onAlignLeft()"><img class="align-left-icon"
+                    src="img/ICONS/align-to-left.png"></button>
+            <button class="btn align-center" onclick="onAlignCenter()"><img class="align-center-icon"
+                    src="img/ICONS/center-text-alignment.png"></button>
+            <button class="btn align-right" onclick="onAlignRight()"><img class="align-right-icon"
+                    src="img/ICONS/align-to-right.png"></button>
+
+            <div class="input-color-container">
+                <input class="input-color" value="#ed6868" class="input-color" type="color">
+            </div>
+        </div>
+    </div>
+
+    <div class="image-gallery"></div>
+
+    <script src="js/meme-service.js"></script>
     <script src="js/main.js"></script>
 </body>
 
