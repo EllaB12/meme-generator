@@ -5,11 +5,18 @@ var gCtx;
 
 var gTxtLinePosition = [{ x: 250, y: 50 }, { x: 250, y: 450 }];
 
+var gIsDraggable = false;
+
 function onInit() {
     gCanvas = document.querySelector('#canvas');
     gCtx = gCanvas.getContext('2d');
+    if (window.innerWidth < 740) resizeCanvas();
     showImg();
     renderImages();
+
+    gCanvas.addEventListener("mouseup", onMouseUp, false);
+    gCanvas.addEventListener("mousemove", onMouseMove, false);
+    gCanvas.addEventListener("mousedown", onMouseDown, false);
 }
 
 function renderImages() {
@@ -50,11 +57,10 @@ function drawText(meme) {
     lines.forEach((line, Idx) => {
         var x = gTxtLinePosition[Idx].x;
         var y = gTxtLinePosition[Idx].y;
-
         gCtx.lineWidth = '2'
         gCtx.strokeStyle = 'black'
         gCtx.fillStyle = line.color
-        gCtx.font = line.size + 'px impact'
+        gCtx.font = line.size + 'px ' + line.font;
         gCtx.textAlign = line.align;
         gCtx.fillText(line.txt, x, y)
         gCtx.strokeText(line.txt, x, y)
@@ -63,15 +69,18 @@ function drawText(meme) {
 
 function onWriteText() {
     var txt = document.querySelector('.text-input').value;
-    updateMemeText(txt);
-    renderCanvas();
+    if (gCtx.measureText(txt).width < gCanvas.width || gCtx.measureText(txt).width === 1) {
+        updateMemeText(txt);
+        renderCanvas();
+    }
 }
 
 function onUpdateMemeImg(imgId) {
     document.querySelector('.image-gallery').style.display = 'none';
     document.querySelector('.canvas-container').style.display = 'block';
     document.querySelector('.text-input').style.display = 'block';
-    document.querySelector('.btn-selectors').style.display = 'block';
+    document.querySelector('.btn-container').style.display = 'block';
+    document.querySelector('.main-content').classList.add('main-bkg');
     updateMemeImg(imgId);
     renderCanvas();
 }
@@ -94,15 +103,15 @@ function onDecreaseTxt() {
 
 function onUpTxt() {
     var lineIdx = getSelectedLineIdx();
-    if (lineIdx === 0) gTxtLinePosition[0].y--;
-    else gTxtLinePosition[1].y--;
+    gTxtLinePosition[lineIdx].y--;
+    gTxtLinePosition[lineIdx].y--;
     renderCanvas();
 }
 
 function onDownTxt() {
     var lineIdx = getSelectedLineIdx();
-    if (lineIdx === 0) gTxtLinePosition[0].y++;
-    else gTxtLinePosition[1].y++;
+    gTxtLinePosition[lineIdx].y++;
+    gTxtLinePosition[lineIdx].y++;
     renderCanvas();
 }
 
@@ -136,4 +145,61 @@ function onAlignRight() {
 
     updateAlignText('right');
     renderCanvas();
+}
+
+function onChangeTxtColor() {
+    var colorValue = document.querySelector('#valueInput').value;
+    changeTxtColor('#' + colorValue);
+    renderCanvas();
+}
+
+function resizeCanvas() {
+    gCanvas.width = 400;
+    gCanvas.height = 400;
+}
+
+function onRemoveLine() {
+    var currLineIdx = getSelectedLineIdx();
+    gTxtLinePosition.splice(currLineIdx, 1);
+    removeLine();
+    renderCanvas();
+}
+
+function onAddLine() {
+    var position = { x: gCanvas.width / 2, y: gCanvas.height / 2 }
+    gTxtLinePosition.push(position);
+    addLine();
+    renderCanvas();
+}
+
+function onChangeFont() {
+    var font = document.querySelector('.change-font').value;
+    changeFont(font);
+    renderCanvas();
+}
+
+function onMouseDown(ev) {
+    gIsDraggable = true;
+    var { offsetX, offsetY } = ev;
+}
+
+function onMouseUp(ev) {
+    gIsDraggable = false;
+}
+
+function onMouseMove(ev) {
+    gCanvas.onmouseout = () => {
+        gIsDraggable = false;
+        return
+    }
+
+    if (gIsDraggable) {
+        var endX = ev.offsetX;
+        var endY = ev.offsetY;
+
+        var currLineIdx = getSelectedLineIdx();
+        gTxtLinePosition[currLineIdx].x = endX;
+        gTxtLinePosition[currLineIdx].y = endY;
+        renderCanvas();
+    }
 }

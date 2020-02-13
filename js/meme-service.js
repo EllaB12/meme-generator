@@ -23,6 +23,31 @@ var gImgs = [
 ];
 var gMeme = creatMeme();
 
+function changeFont(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font;
+}
+
+function addLine() {
+    var line = {
+        txt: 'text here',
+        size: 50,
+        align: 'center',
+        color: 'white'
+    }
+
+    gMeme.lines.push(line);
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
+}
+
+function removeLine() {
+    var currLineIdx = gMeme.selectedLineIdx;
+    gMeme.lines.splice(currLineIdx, 1)
+    gMeme.selectedLineIdx--;
+}
+
+function changeTxtColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].color = color;
+}
 
 function getImgs() {
     return gImgs;
@@ -37,9 +62,11 @@ function decreaseTxtSize(size) {
 }
 
 function switchLine() {
-    if (gMeme.selectedLineIdx === 0) {
-        gMeme.selectedLineIdx = 1;
-    } else gMeme.selectedLineIdx = 0;
+    gMeme.selectedLineIdx++;
+
+    if (gMeme.selectedLineIdx >= gMeme.lines.length) {
+        gMeme.selectedLineIdx = 0;
+    }
 }
 
 function updateAlignText(align) {
@@ -71,7 +98,7 @@ function creatMeme() {
         selectedImgId: 1,
         selectedLineIdx: 0,
         lines: [
-            { txt: '', size: 50, align: 'center', color: 'white' },
-            { txt: '', size: 50, align: 'center', color: 'white' }]
+            { txt: 'text here', size: 50, align: 'center', color: 'white', font: 'Impact' },
+            { txt: 'text here', size: 50, align: 'center', color: 'white', font: 'Impact' }]
     }
 }

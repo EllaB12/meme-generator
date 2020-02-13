@@ -2,50 +2,102 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/main.css">
-    <title>Meme Generator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="css/main.css">
+        <title>Meme Generator</title>
 </head>
 
 <body onload="onInit()">
 
-    <div class="grid-container">
-        <div class="canvas-container">
-            <canvas id="canvas" height="500" width="500" style="border: 1px solid black;"></canvas>
-        </div>
+        <header>
+                <nav class="main-nav-container flex align-center space-between container">
+                        <div class="logo">memegen</div>
+                        <ul class="main-nav clean-list flex">
+                                <li><a onclick="onDisplayGallery()" class="flex align-center"
+                                                href="#gallery">Gallery</a></li>
+                                <li><a class="flex align-center" href="#">About</a></li>
+                        </ul>
+                </nav>
+        </header>
 
-        <div class="btn-selectors">
-            <input oninput="onWriteText()" class="text-input" type="text" placeholder="Write here your text">
+        <main class="main-content">
+                <div id="gallery" class="image-gallery container"></div>
 
-            <button class="btn increase-btn" onclick="onIncreaseTxt()"><img class="increase-icon"
-                    src="img/ICONS/increase font - icon.png"></button>
-            <button class="btn decrease-btn" onclick="onDecreaseTxt()"><img class="decrease-icon"
-                    src="img/ICONS/decrease font - icon.png"></button>
-            <button class="btn up-btn" onclick="onUpTxt()"><img class="up-icon"
-                    src="img/ICONS/up-arrow-icon.png"></button>
-            <button class="btn down-btn" onclick="onDownTxt()"><img class="down-icon"
-                    src="img/ICONS/down-arrow-icon.png"></button>
-            <button class="btn switch-line-btn" onclick="onSwitchLine()"><img class="switch-line-icon"
-                    src="img/ICONS/up-and-down-arrows.png"></button>
-            <button class="btn align-left" onclick="onAlignLeft()"><img class="align-left-icon"
-                    src="img/ICONS/align-to-left.png"></button>
-            <button class="btn align-center" onclick="onAlignCenter()"><img class="align-center-icon"
-                    src="img/ICONS/center-text-alignment.png"></button>
-            <button class="btn align-right" onclick="onAlignRight()"><img class="align-right-icon"
-                    src="img/ICONS/align-to-right.png"></button>
+                <div class="meme-container flex container">
+                        <div class="canvas-container">
+                                <canvas id="canvas" height="500" width="500" style="border: 1px solid black;"></canvas>
+                        </div>
 
-            <div class="input-color-container">
-                <input class="input-color" value="#ed6868" class="input-color" type="color">
-            </div>
-        </div>
-    </div>
+                        <div class="btn-container">
+                                <input oninput="onWriteText()" class="text-input" type="text"
+                                        placeholder=" Write here your text">
 
-    <div class="image-gallery"></div>
+                                <div class="row btn-row-1 flex justify-center">
+                                        <button class="btn switch-line-btn" onclick="onSwitchLine()">
+                                                <img class="switch-line-icon" src="img/ICONS/up-and-down-arrows.png">
+                                        </button>
 
-    <script src="js/meme-service.js"></script>
-    <script src="js/main.js"></script>
+                                        <button class="btn add-line-btn" onclick="onAddLine()">
+                                                <img class=" add-line-icon" src="img/ICONS/add.png">
+                                        </button>
+
+                                        <button class="btn remove-btn" onclick="onRemoveLine()">
+                                                <img class=" remove-icon" src="img/ICONS/trash.png">
+                                        </button>
+                                </div>
+
+                                <div class="row btn-row-2 flex justify-center">
+                                        <button class="btn increase-btn" onclick="onIncreaseTxt()"><img
+                                                        class="increase-icon"
+                                                        src="img/ICONS/increase font - icon.png"></button>
+                                        <button class="btn decrease-btn" onclick="onDecreaseTxt()"><img
+                                                        class="decrease-icon"
+                                                        src="img/ICONS/decrease font - icon.png"></button>
+                                        <button class="btn up-btn" onclick="onUpTxt()"><img class="up-icon"
+                                                        src="img/ICONS/up-arrow-icon.png"></button>
+                                        <button class="btn down-btn" onclick="onDownTxt()"><img class="down-icon"
+                                                        src="img/ICONS/down-arrow-icon.png"></button>
+                                </div>
+
+                                <div class="row btn-row-3 flex justify-center">
+                                        <button class="btn align-left" onclick="onAlignLeft()"><img
+                                                        class="align-left-icon"
+                                                        src="img/ICONS/align-to-left.png"></button>
+                                        <button class="btn align-center" onclick="onAlignCenter()"><img
+                                                        class="align-center-icon"
+                                                        src="img/ICONS/center-text-alignment.png"></button>
+                                        <button class="btn align-right" onclick="onAlignRight()"><img
+                                                        class="align-right-icon"
+                                                        src="img/ICONS/align-to-right.png"></button>
+                                </div>
+
+                                <div class="row btn-row-4 flex justify-center">
+                                        <select class="change-font" onchange="onChangeFont()">
+                                                <option class="impact-font">Impact</option>
+                                                <option class="arial-font">Arial</option>
+                                                <option class="georgia-font">Georgia</option>
+                                        </select>
+
+                                        <button
+                                                class="btn fill-color jscolor {valueElement:'valueInput', styleElement:'styleInput'}">
+                                                🎨
+                                        </button>
+                                        <input onchange="onChangeTxtColor()" id="valueInput" value="ff6699" hidden>
+                                </div>
+                        </div>
+                </div>
+        </main>
+
+        <footer>
+                <div class="logo">memegen</div>
+                <small>©All rights reserved 2020</small>
+        </footer>
+
+        <script src="lib/jscolor.js"></script>
+        <script src="js/meme-service.js"></script>
+        <script src="js/main.js"></script>
 </body>
 
 </html>
