@@ -12,12 +12,18 @@
 <body onload="onInit()">
 
         <header>
-                <nav class="main-nav-container flex align-center space-between container">
-                        <div class="logo">memegen</div>
+                <nav id="navbar" class="main-nav-container flex align-center space-between container">
+                        <div class="logo"><a href="#navbar">memegen</a></div>
                         <ul class="main-nav clean-list flex">
-                                <li><a onclick="onDisplayGallery()" class="flex align-center"
-                                                href="#gallery">Gallery</a></li>
-                                <li><a class="flex align-center" href="#">About</a></li>
+                                <li><a onclick="onDisplayMain(this)" class="gallery flex align-center active"
+                                                href="#gallery">Gallery</a>
+                                </li>
+                                <li><a onclick="onDisplaySavedMemes(this)" class="memes flex align-center"
+                                                href="#gallery">Memes</a>
+                                </li>
+                                <li><a onclick="onDisplayMain(this)" class="about flex align-center"
+                                                href="#about">About</a>
+                                </li>
                         </ul>
                 </nav>
         </header>
@@ -25,14 +31,16 @@
         <main class="main-content">
                 <div id="gallery" class="image-gallery container"></div>
 
-                <div class="meme-container flex container">
+                <div id="memes" class="saved-memes container">You don't have</div>
+
+                <div class="meme-container container">
                         <div class="canvas-container">
                                 <canvas id="canvas" height="500" width="500" style="border: 1px solid black;"></canvas>
                         </div>
 
                         <div class="btn-container">
                                 <input oninput="onWriteText()" class="text-input" type="text"
-                                        placeholder=" Write here your text">
+                                        placeholder="Write here your text">
 
                                 <div class="row btn-row-1 flex justify-center">
                                         <button class="btn switch-line-btn" onclick="onSwitchLine()">
@@ -55,9 +63,9 @@
                                         <button class="btn decrease-btn" onclick="onDecreaseTxt()"><img
                                                         class="decrease-icon"
                                                         src="img/ICONS/decrease font - icon.png"></button>
-                                        <button class="btn up-btn" onclick="onUpTxt()"><img class="up-icon"
+                                        <button class="btn up-btn" onclick="onMoveTxt(-1)"><img class="up-icon"
                                                         src="img/ICONS/up-arrow-icon.png"></button>
-                                        <button class="btn down-btn" onclick="onDownTxt()"><img class="down-icon"
+                                        <button class="btn down-btn" onclick="onMoveTxt(1)"><img class="down-icon"
                                                         src="img/ICONS/down-arrow-icon.png"></button>
                                 </div>
 
@@ -86,16 +94,57 @@
                                         </button>
                                         <input onchange="onChangeTxtColor()" id="valueInput" value="ff6699" hidden>
                                 </div>
+
+                                <div class="row btn-row-5 flex space-between">
+                                        <button onclick="onDownloadDropdown()" class="download-btn">Download</button>
+                                        <div class="download-content">
+                                                <a href="#" onclick="downloadImg(this)"
+                                                        download="my-meme.jpg">Download</a>
+                                                <a href="#" onclick="saveImg(this)">Save</a>
+                                        </div>
+
+                                        <form action="" method="POST" enctype="multipart/form-data"
+                                                onsubmit="uploadImg(this, event)">
+                                                <input name="img" id="imgData" type="hidden" />
+                                                <button onclick="onShareDropdown()" class="share-btn"
+                                                        type="submit">Share</button>
+                                                <div class="share-content">
+
+                                                </div>
+                                        </form>
+                                </div>
                         </div>
                 </div>
         </main>
 
+        <section id="about" class="about-container flex align-center justify-center">
+                <img class="about-img" src="/img/about.jpg">
+                <div class="about-me">
+                        <p class="about-p">Hey guys! Ella here. I'm a Junior Full Stack Developer.
+                                </br> A new challenge is ahead. Meanwhile, enjoy my meme generator.
+                                Questions and suggestions will be appreciated.
+                        </p>
+                        <a href="https://www.linkedin.com/in/ella-brazlev-891ba0169/" target="_blank" class="link"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.facebook.com/ella.brazlev?ref=bookmarks" target="_blank" class="link"><i
+                                        class="fab fa-facebook-f"></i></a>
+                        <a href="https://github.com/EllaB12/meme-generator" target="_blank" class="link"><i
+                                        class="fab fa-github"></i></a>
+                </div>
+        </section>
+
         <footer>
-                <div class="logo">memegen</div>
+                <div class="logo"><a href="#navbar">memegen</a></div>
                 <small>©All rights reserved 2020</small>
         </footer>
 
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/318a5734f3.js" crossorigin="anonymous"></script>
+
+        <!-- jscolor -->
         <script src="lib/jscolor.js"></script>
+
+        <script src="js/storage-service.js"></script>
         <script src="js/meme-service.js"></script>
         <script src="js/main.js"></script>
 </body>

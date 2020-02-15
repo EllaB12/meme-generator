@@ -3,9 +3,11 @@
 var gCanvas;
 var gCtx;
 
-var gTxtLinePosition = [{ x: 250, y: 50 }, { x: 250, y: 450 }];
+var gTxtLinePosition = [{ x: 250, y: 60 }, { x: 250, y: 450 }];
 
 var gIsDraggable = false;
+
+var gSavedMemesImg;
 
 function onInit() {
     gCanvas = document.querySelector('#canvas');
@@ -17,6 +19,8 @@ function onInit() {
     gCanvas.addEventListener("mouseup", onMouseUp, false);
     gCanvas.addEventListener("mousemove", onMouseMove, false);
     gCanvas.addEventListener("mousedown", onMouseDown, false);
+
+    gSavedMemesImg = (loadFromStorage('memes')) ? loadFromStorage('memes') : [];
 }
 
 function renderImages() {
@@ -76,11 +80,17 @@ function onWriteText() {
 }
 
 function onUpdateMemeImg(imgId) {
-    document.querySelector('.image-gallery').style.display = 'none';
+    document.querySelector('.gallery').classList.remove('active');
+    document.querySelector('.about').classList.remove('active');
+
+    document.querySelector('.meme-container').style.display = 'flex';
     document.querySelector('.canvas-container').style.display = 'block';
-    document.querySelector('.text-input').style.display = 'block';
     document.querySelector('.btn-container').style.display = 'block';
-    document.querySelector('.main-content').classList.add('main-bkg');
+
+    document.querySelector('.image-gallery').style.display = 'none';
+    document.querySelector('.about-container').style.display = 'none';
+
+    updateMeme();
     updateMemeImg(imgId);
     renderCanvas();
 }
@@ -101,17 +111,9 @@ function onDecreaseTxt() {
     renderCanvas();
 }
 
-function onUpTxt() {
+function onMoveTxt(diff) {
     var lineIdx = getSelectedLineIdx();
-    gTxtLinePosition[lineIdx].y--;
-    gTxtLinePosition[lineIdx].y--;
-    renderCanvas();
-}
-
-function onDownTxt() {
-    var lineIdx = getSelectedLineIdx();
-    gTxtLinePosition[lineIdx].y++;
-    gTxtLinePosition[lineIdx].y++;
+    gTxtLinePosition[lineIdx].y += diff;
     renderCanvas();
 }
 
@@ -156,6 +158,8 @@ function onChangeTxtColor() {
 function resizeCanvas() {
     gCanvas.width = 400;
     gCanvas.height = 400;
+
+    gTxtLinePosition = [{ x: 200, y: 50 }, { x: 200, y: 350 }];
 }
 
 function onRemoveLine() {
@@ -202,4 +206,120 @@ function onMouseMove(ev) {
         gTxtLinePosition[currLineIdx].y = endY;
         renderCanvas();
     }
+}
+
+function onDisplayMain(el) {
+    var elMeme = document.querySelector('.meme-container');
+    var elSaveMemes = document.querySelector('.saves-memes');
+
+    if (elMeme.style.display !== 'none' || elSaveMemes.style.display !== 'none') {
+        document.querySelector('.canvas-container').style.display = 'none';
+        document.querySelector('.btn-container').style.display = 'none';
+        document.querySelector('.meme-container').style.display = 'none';
+        document.querySelector('.saved-memes').style.display = 'none';
+        document.querySelector('.meme-container').style.display = 'flex';
+        document.querySelector('.image-gallery').style.display = 'grid';
+        document.querySelector('.about-container').style.display = 'flex';
+    }
+
+    if (el.innerText === 'Gallery') {
+        el.classList.add('active');
+        document.querySelector('.about').classList.remove('active');
+        document.querySelector('.memes').classList.remove('active');
+    } else {
+        el.classList.add('active');
+        document.querySelector('.gallery').classList.remove('active');
+        document.querySelector('.memes').classList.remove('active');
+    }
+}
+
+function onDisplaySavedMemes(el) {
+    document.querySelector('.canvas-container').style.display = 'none';
+    document.querySelector('.btn-container').style.display = 'none';
+    document.querySelector('.image-gallery').style.display = 'none';
+    document.querySelector('.about-container').style.display = 'none';
+
+    el.classList.add('active');
+    document.querySelector('.gallery').classList.remove('active');
+    document.querySelector('.about').classList.remove('active');
+
+    renderSavedMemes()
+    document.querySelector('.saved-memes').style.display = 'grid';
+}
+
+function onDownloadDropdown() {
+    document.querySelector('.download-content').classList.toggle('show');
+
+    window.onclick = function (event) {
+        if (!event.target.matches('.download-btn')) {
+            var dropdowns = document.querySelector('.download-content');
+            if (dropdowns.classList.contains('show')) {
+                dropdowns.classList.remove('show');
+            }
+        }
+    }
+}
+
+function onShareDropdown() {
+    document.querySelector('.share-content').classList.toggle('show');
+
+    window.onclick = function (event) {
+        if (!event.target.matches('.share-btn')) {
+            var dropdowns = document.querySelector('.share-content');
+            if (dropdowns.classList.contains('show')) {
+                dropdowns.classList.remove('show');
+            }
+        }
+    }
+}
+
+function downloadImg(elLink) {
+    var imgContent = gCanvas.toDataURL('image/jpeg');
+    elLink.href = imgContent
+}
+
+function saveImg() {
+    var imgContent = gCanvas.toDataURL('image/jpeg');
+    gSavedMemesImg.push(imgContent);
+    saveToStorage('memes', gSavedMemesImg);
+}
+
+function uploadImg(elForm, ev) {
+    ev.preventDefault();
+    document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
+
+    function onSuccess(uploadedImgUrl) {
+        uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        document.querySelector('.share-content').innerHTML = `
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;"> 
+        <i class="fab fa-facebook"></i> Share
+        </a>`
+    }
+
+    doUploadImg(elForm, onSuccess);
+}
+
+function doUploadImg(elForm, onSuccess) {
+    var formData = new FormData(elForm);
+    fetch('http://ca-upload.com/here/upload.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(function (res) {
+            return res.text()
+        })
+        .then(onSuccess)
+        .catch(function (err) {
+            console.error(err)
+        })
+}
+
+function renderSavedMemes() {
+    var strHtml = gSavedMemesImg.map((saveMeme, Idx) => {
+        return `
+                <img src="${saveMeme}">
+               `
+    });
+
+    document.querySelector('.saved-memes').innerHTML = strHtml.join('');
 }

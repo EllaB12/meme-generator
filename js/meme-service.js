@@ -29,10 +29,11 @@ function changeFont(font) {
 
 function addLine() {
     var line = {
-        txt: 'text here',
+        txt: 'Your Text',
         size: 50,
         align: 'center',
-        color: 'white'
+        color: 'white',
+        font: 'Impact'
     }
 
     gMeme.lines.push(line);
@@ -93,12 +94,16 @@ function getSelectedLineIdx() {
     return gMeme.selectedLineIdx;
 }
 
+function updateMeme() {
+    gMeme = creatMeme();
+}
+
 function creatMeme() {
     return {
         selectedImgId: 1,
         selectedLineIdx: 0,
         lines: [
-            { txt: 'text here', size: 50, align: 'center', color: 'white', font: 'Impact' },
-            { txt: 'text here', size: 50, align: 'center', color: 'white', font: 'Impact' }]
+            { txt: 'Your Text', size: 50, align: 'center', color: 'white', font: 'Impact' },
+            { txt: 'Your Text', size: 50, align: 'center', color: 'white', font: 'Impact' }]
     }
 }
