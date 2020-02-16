@@ -11,7 +11,7 @@
 
 @font-face {
     font-family: eurofurence;
-    src: url(../fonts/Eurofurence/eurofurence-regular.ttf)
+    src: url(../fonts/eurofurence/eurof76.ttf)
 }
 
 /* Base */
@@ -85,6 +85,7 @@ header {
     grid-auto-rows: 200px;
     gap: 10px;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .image-gallery img {
@@ -269,6 +270,36 @@ canvas {
     padding-right: 7px;
 }
 
+/* search */
+
+.search-container {
+    height: 100%;
+    background-color: #F7F7F9;
+    padding: 30px;
+}
+
+.search-input {
+    border: none;
+    border-bottom: solid black 2px;
+    background-color: inherit;
+    width: 200px;
+    outline-width: 0;
+    font-size: 18px;
+}
+
+.search-btn {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid black 2px;
+    outline-width: 0;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+}
+
 /* about */
 
 .about-container {
@@ -313,7 +344,7 @@ canvas {
 
 footer {
     background-color: #FF8360;
-    height: 250px;
+    height: 150px;
     text-align: center;
     width: 100%;
 }

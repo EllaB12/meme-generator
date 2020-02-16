@@ -22,6 +22,42 @@ var gImgs = [
     { id: 18, url: 'img/18.jpg', keywords: ['cute'] },
 ];
 var gMeme = creatMeme();
+var gFilter = 'All';
+var gKeywords = [];
+
+function getImgForDisplay() {
+    if (gFilter === 'All' || !gFilter) return gImgs;
+    addKeyWord(gFilter);
+    var imgsForDisplay = gImgs.filter(function (img) {
+        return img.keywords.find(keyWord => gFilter === keyWord)
+    })
+
+    return imgsForDisplay;
+}
+
+function addKeyWord(word) {
+    var foundWord = gKeywords.findIndex(keyword => keyword === word);
+
+    if (foundWord === -1) {
+        var keyWord = {
+            word,
+            count: 0,
+            size: 16
+        }
+        gKeywords.push(keyWord);
+    } else {
+        getKeyWords[foundWord].count++;
+        getKeyWords[foundWord].size++;
+    }
+}
+
+function getKeyWords() {
+    return gKeywords;
+}
+
+function updateFilter(filter) {
+    gFilter = filter;
+}
 
 function changeFont(font) {
     gMeme.lines[gMeme.selectedLineIdx].font = font;
@@ -50,16 +86,9 @@ function changeTxtColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color;
 }
 
-function getImgs() {
-    return gImgs;
-}
 
-function IncreaseTxtSize(size) {
-    gMeme.lines[gMeme.selectedLineIdx].size = size + 1;
-}
-
-function decreaseTxtSize(size) {
-    gMeme.lines[gMeme.selectedLineIdx].size = size - 1;
+function changeTxtSize(diff) {
+    gMeme.lines[gMeme.selectedLineIdx].size += diff;
 }
 
 function switchLine() {
@@ -96,6 +125,10 @@ function getSelectedLineIdx() {
 
 function updateMeme() {
     gMeme = creatMeme();
+}
+
+function updateSavedMeme(meme) {
+    gMeme = meme;
 }
 
 function creatMeme() {

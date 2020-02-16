@@ -28,6 +28,15 @@
                 </nav>
         </header>
 
+        <section class="search-container">
+                <div class="flex container">
+                        <input class="search-input" type="text" placeholder="Enter search Keyword">
+                        <button onclick="onUpdateSearchInput()" class="search-btn"><img class="search-icon"
+                                        src="img/ICONS/search-icon.png"></button>
+                        <div class="keyWords"></div>
+                </div>
+        </section>
+
         <main class="main-content">
                 <div id="gallery" class="image-gallery container"></div>
 
@@ -43,41 +52,42 @@
                                         placeholder="Write here your text">
 
                                 <div class="row btn-row-1 flex justify-center">
-                                        <button class="btn switch-line-btn" onclick="onSwitchLine()">
+                                        <button class="btn switch-line-btn" title="Switch Line"
+                                                onclick="onSwitchLine()">
                                                 <img class="switch-line-icon" src="img/ICONS/up-and-down-arrows.png">
                                         </button>
 
-                                        <button class="btn add-line-btn" onclick="onAddLine()">
+                                        <button class="btn add-line-btn" title="Add Line" onclick="onAddLine()">
                                                 <img class=" add-line-icon" src="img/ICONS/add.png">
                                         </button>
 
-                                        <button class="btn remove-btn" onclick="onRemoveLine()">
+                                        <button class="btn remove-btn" title="Remove Line" onclick="onRemoveLine()">
                                                 <img class=" remove-icon" src="img/ICONS/trash.png">
                                         </button>
                                 </div>
 
                                 <div class="row btn-row-2 flex justify-center">
-                                        <button class="btn increase-btn" onclick="onIncreaseTxt()"><img
-                                                        class="increase-icon"
+                                        <button class="btn increase-btn" title="Increase Text"
+                                                onclick="onChangeTxtSize(1)"><img class="increase-icon"
                                                         src="img/ICONS/increase font - icon.png"></button>
-                                        <button class="btn decrease-btn" onclick="onDecreaseTxt()"><img
-                                                        class="decrease-icon"
+                                        <button class="btn decrease-btn" title="Decrease Text"
+                                                onclick="onChangeTxtSize(-1)"><img class="decrease-icon"
                                                         src="img/ICONS/decrease font - icon.png"></button>
-                                        <button class="btn up-btn" onclick="onMoveTxt(-1)"><img class="up-icon"
-                                                        src="img/ICONS/up-arrow-icon.png"></button>
-                                        <button class="btn down-btn" onclick="onMoveTxt(1)"><img class="down-icon"
-                                                        src="img/ICONS/down-arrow-icon.png"></button>
+                                        <button class="btn up-btn" title="Move Up" onclick="onMoveTxt(-1)"><img
+                                                        class="up-icon" src="img/ICONS/up-arrow-icon.png"></button>
+                                        <button class="btn down-btn" title="Move Down" onclick="onMoveTxt(1)"><img
+                                                        class="down-icon" src="img/ICONS/down-arrow-icon.png"></button>
                                 </div>
 
                                 <div class="row btn-row-3 flex justify-center">
-                                        <button class="btn align-left" onclick="onAlignLeft()"><img
+                                        <button class="btn align-left" title="Align Left" onclick="onAlignLeft()"><img
                                                         class="align-left-icon"
                                                         src="img/ICONS/align-to-left.png"></button>
-                                        <button class="btn align-center" onclick="onAlignCenter()"><img
-                                                        class="align-center-icon"
+                                        <button class="btn align-center" title="Align Center"
+                                                onclick="onAlignCenter()"><img class="align-center-icon"
                                                         src="img/ICONS/center-text-alignment.png"></button>
-                                        <button class="btn align-right" onclick="onAlignRight()"><img
-                                                        class="align-right-icon"
+                                        <button class="btn align-right" title="Align Right"
+                                                onclick="onAlignRight()"><img class="align-right-icon"
                                                         src="img/ICONS/align-to-right.png"></button>
                                 </div>
 
@@ -92,7 +102,8 @@
                                                 class="btn fill-color jscolor {valueElement:'valueInput', styleElement:'styleInput'}">
                                                 🎨
                                         </button>
-                                        <input onchange="onChangeTxtColor()" id="valueInput" value="ff6699" hidden>
+                                        <input onchange="onChangeTxtColor()" title="Text Color" id="valueInput"
+                                                value="ff6699" hidden>
                                 </div>
 
                                 <div class="row btn-row-5 flex space-between">
@@ -120,8 +131,8 @@
         <section id="about" class="about-container flex align-center justify-center">
                 <img class="about-img" src="./img/about.jpg">
                 <div class="about-me">
-                        <p class="about-p">Hey guys! Ella here. I'm a Junior Full Stack Developer.
-                                </br> A new challenge is ahead. Meanwhile, enjoy my meme generator.
+                        <p class="about-p">Hey guys! Ella here.
+                                A new challenge is ahead. Meanwhile, enjoy my meme generator.
                                 Questions and suggestions will be appreciated.
                         </p>
                         <a href="https://www.linkedin.com/in/ella-brazlev-891ba0169/" target="_blank" class="link"><i

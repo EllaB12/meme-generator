@@ -8,6 +8,7 @@ var gTxtLinePosition = [{ x: 250, y: 60 }, { x: 250, y: 450 }];
 var gIsDraggable = false;
 
 var gSavedMemesImg;
+var gSavedMemes;
 
 function onInit() {
     gCanvas = document.querySelector('#canvas');
@@ -21,10 +22,11 @@ function onInit() {
     gCanvas.addEventListener("mousedown", onMouseDown, false);
 
     gSavedMemesImg = (loadFromStorage('memes')) ? loadFromStorage('memes') : [];
+    gSavedMemes = (loadFromStorage('memesObj')) ? loadFromStorage('memesObj') : [];
 }
 
 function renderImages() {
-    var imgs = getImgs();
+    var imgs = getImgForDisplay();
 
     var strHtml = imgs.map(img => {
         return `
@@ -80,6 +82,8 @@ function onWriteText() {
 }
 
 function onUpdateMemeImg(imgId) {
+    document.querySelector('.text-input').value = '';
+
     document.querySelector('.gallery').classList.remove('active');
     document.querySelector('.about').classList.remove('active');
 
@@ -92,22 +96,18 @@ function onUpdateMemeImg(imgId) {
 
     updateMeme();
     updateMemeImg(imgId);
+    if (window.innerWidth < 740) resizeCanvas();
+    else {
+        gTxtLinePosition = [{ x: 250, y: 60 }, { x: 250, y: 450 }];
+    }
     renderCanvas();
+
+    var elHeader = document.querySelector('header');
+    elHeader.scrollIntoView();
 }
 
-function onIncreaseTxt() {
-    var meme = getMeme();
-    var lineIndex = meme.selectedLineIdx;
-    var txtSize = meme.lines[lineIndex].size;
-    IncreaseTxtSize(txtSize);
-    renderCanvas();
-}
-
-function onDecreaseTxt() {
-    var meme = getMeme();
-    var lineIndex = meme.selectedLineIdx;
-    var txtSize = meme.lines[lineIndex].size;
-    decreaseTxtSize(txtSize);
+function onChangeTxtSize(diff) {
+    changeTxtSize(diff);
     renderCanvas();
 }
 
@@ -118,8 +118,20 @@ function onMoveTxt(diff) {
 }
 
 function onSwitchLine() {
-    switchLine()
-    renderCanvas();
+    switchLine();
+
+    var lineIdx = getSelectedLineIdx();
+    var y = gTxtLinePosition[lineIdx].y;
+    var size = getMeme().lines[lineIdx].size;
+    drawRect(size, y);
+
+}
+
+function drawRect(size, y) {
+    gCtx.beginPath()
+    gCtx.rect(10, y - (size * 1.5) + 20, 480, size * 1.5)
+    gCtx.strokeStyle = 'black'
+    gCtx.stroke()
 }
 
 function onAlignLeft() {
@@ -163,7 +175,7 @@ function resizeCanvas() {
 }
 
 function onRemoveLine() {
-    document.querySelector('.text-input').value = 'Write your text here';
+    document.querySelector('.text-input').value = '';
     var currLineIdx = getSelectedLineIdx();
     gTxtLinePosition.splice(currLineIdx, 1);
     removeLine();
@@ -185,7 +197,6 @@ function onChangeFont() {
 
 function onMouseDown(ev) {
     gIsDraggable = true;
-    var { offsetX, offsetY } = ev;
 }
 
 function onMouseUp(ev) {
@@ -283,6 +294,10 @@ function saveImg() {
     var imgContent = gCanvas.toDataURL('image/jpeg');
     gSavedMemesImg.push(imgContent);
     saveToStorage('memes', gSavedMemesImg);
+
+    var meme = getMeme();
+    gSavedMemes.push(meme);
+    saveToStorage('memesObj', gSavedMemes);
 }
 
 function uploadImg(elForm, ev) {
@@ -302,7 +317,7 @@ function uploadImg(elForm, ev) {
 
 function doUploadImg(elForm, onSuccess) {
     var formData = new FormData(elForm);
-    fetch('https://ca-upload.com/here/upload.php', {
+    fetch('//ca-upload.com/here/upload.php', {
         method: 'POST',
         body: formData
     })
@@ -318,9 +333,27 @@ function doUploadImg(elForm, onSuccess) {
 function renderSavedMemes() {
     var strHtml = gSavedMemesImg.map((saveMeme, Idx) => {
         return `
-                <img src="${saveMeme}">
+                <img onclick="onShowSavedMeme(${Idx})" src="${saveMeme}">
                `
     });
 
     document.querySelector('.saved-memes').innerHTML = strHtml.join('');
+}
+
+function onShowSavedMeme(memeId) {
+    var memeImg = gSavedMemes[memeId].selectedImgId;
+    var meme = gSavedMemes[memeId];
+
+    console.log(meme);
+
+    onUpdateMemeImg(memeImg);
+    updateSavedMeme(meme);
+    document.querySelector('.saved-memes').style.display = 'none';
+}
+
+function onUpdateSearchInput() {
+    var filter = document.querySelector('.search-input').value;
+    updateFilter(filter);
+    renderImages();
+    renderKeyWords();
 }
