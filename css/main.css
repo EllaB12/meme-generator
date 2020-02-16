@@ -327,7 +327,7 @@ footer .logo {
 
 .saved-memes {
     display: none;
-    min-height: 380px;
+    min-height: 450px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: 200px;
     gap: 10px;
