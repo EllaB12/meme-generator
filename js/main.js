@@ -163,6 +163,7 @@ function resizeCanvas() {
 }
 
 function onRemoveLine() {
+    document.querySelector('.text-input').value = 'Write your text here';
     var currLineIdx = getSelectedLineIdx();
     gTxtLinePosition.splice(currLineIdx, 1);
     removeLine();
