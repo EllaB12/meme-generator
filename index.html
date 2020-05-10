@@ -30,9 +30,11 @@
 
         <section class="search-container">
                 <div class="flex container">
-                        <input class="search-input" type="text" placeholder="Enter search Keyword">
-                        <button onclick="onUpdateSearchInput()" class="search-btn"><img class="search-icon"
-                                        src="img/ICONS/search-icon.png"></button>
+                        <input class="search-input" oninput="onUpdateSearchInput()" type="text"
+                                placeholder="Enter search Keyword">
+                        <button class="search-btn">
+                                <img class="search-icon" src="img/ICONS/search-icon.png">
+                        </button>
                         <div class="keyWords"></div>
                 </div>
         </section>
@@ -40,7 +42,7 @@
         <main class="main-content">
                 <div id="gallery" class="image-gallery container"></div>
 
-                <div id="memes" class="saved-memes container">You don't have</div>
+                <div id="memes" class="saved-memes container"></div>
 
                 <div class="meme-container container">
                         <div class="canvas-container">
@@ -48,7 +50,7 @@
                         </div>
 
                         <div class="btn-container">
-                                <input oninput="onWriteText()" class="text-input" type="text"
+                                <input oninput="onWriteText()" onfocusout="myFunction()" class="text-input" type="text"
                                         placeholder="Write here your text">
 
                                 <div class="row btn-row-1 flex justify-center">

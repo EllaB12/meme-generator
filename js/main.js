@@ -93,6 +93,8 @@ function onUpdateMemeImg(imgId) {
 
     document.querySelector('.image-gallery').style.display = 'none';
     document.querySelector('.about-container').style.display = 'none';
+    document.querySelector('.search-container').style.display = 'none';
+
 
     updateMeme();
     updateMemeImg(imgId);
@@ -227,11 +229,11 @@ function onDisplayMain(el) {
     if (elMeme.style.display !== 'none' || elSaveMemes.style.display !== 'none') {
         document.querySelector('.canvas-container').style.display = 'none';
         document.querySelector('.btn-container').style.display = 'none';
-        document.querySelector('.meme-container').style.display = 'none';
         document.querySelector('.saved-memes').style.display = 'none';
         document.querySelector('.meme-container').style.display = 'flex';
         document.querySelector('.image-gallery').style.display = 'grid';
         document.querySelector('.about-container').style.display = 'flex';
+        document.querySelector('.search-container').style.display = 'block';
     }
 
     if (el.innerText === 'Gallery') {
@@ -355,5 +357,9 @@ function onUpdateSearchInput() {
     var filter = document.querySelector('.search-input').value;
     updateFilter(filter);
     renderImages();
-    renderKeyWords();
+}
+
+function myFunction() {
+    var inputEl = document.querySelector('.text-input');
+    inputEl.value = '';
 }

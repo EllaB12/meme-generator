@@ -6,12 +6,12 @@
 
 @font-face {
     font-family: lato;
-    src: url(../fonts/Lato/Lato-Regular.ttf)
+    src: url(../fonts/Lato/Lato-Regular.ttf);
 }
 
 @font-face {
     font-family: eurofurence;
-    src: url(../fonts/eurofurence/eurof76.ttf)
+    src: url(../fonts/eurofurence/eurof76.ttf);
 }
 
 /* Base */
@@ -22,7 +22,7 @@ html {
 
 body {
     margin: 0;
-    background-color: #E8E9ED;
+    background-color: #e8e9ed;
 }
 
 a {
@@ -45,11 +45,11 @@ ul {
 /* navbar */
 
 header {
-    background-color: #FF8360;
+    background-color: #ff8360;
 }
 
 .main-nav a {
-    color: #FCFAE1;
+    color: #fcfae1;
     height: 66px;
     width: 100px;
     justify-content: center;
@@ -67,7 +67,7 @@ header {
 }
 
 .logo a {
-    color: #FCFAE1;
+    color: #fcfae1;
     font-family: eurofurence, sans-serif;
     font-size: 2.5rem;
 }
@@ -75,7 +75,7 @@ header {
 /* main */
 
 .main-content {
-    background-color: #E8E9ED;
+    background-color: #e8e9ed;
 }
 
 .image-gallery {
@@ -103,6 +103,7 @@ header {
     display: none;
     padding-top: 20px;
     padding-bottom: 20px;
+    justify-content: space-around;
 }
 
 .canvas-container {
@@ -115,7 +116,7 @@ canvas {
 
 .btn-container {
     display: none;
-    margin: auto;
+    margin: 0;
 }
 
 .text-input {
@@ -136,24 +137,30 @@ canvas {
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    background-color: #F1F2F6;
+    background-color: #f1f2f6;
     border: none;
     cursor: pointer;
     margin: 10px;
     outline-width: 0;
 }
 
-.increase-icon, .decrease-icon, .remove-icon {
+.increase-icon,
+.decrease-icon,
+.remove-icon {
     width: 28px;
     height: 30px;
 }
 
-.up-icon, .down-icon, .switch-line-icon {
+.up-icon,
+.down-icon,
+.switch-line-icon {
     width: 28px;
     height: 28px;
 }
 
-.align-left-icon, .align-center-icon, .align-right-icon {
+.align-left-icon,
+.align-center-icon,
+.align-right-icon {
     width: 30px;
     height: 25px;
 }
@@ -217,14 +224,15 @@ canvas {
     font-family: Georgia;
 }
 
-.share-btn, .download-btn {
+.share-btn,
+.download-btn {
     width: 100px;
     height: 50px;
     border-radius: 12px;
-    background-color: #FF8360;
+    background-color: #ff8360;
     border: none;
     cursor: pointer;
-    color: #FCFAE1;
+    color: #fcfae1;
     font-size: 17px;
     outline-width: 0;
 }
@@ -235,11 +243,15 @@ canvas {
     position: relative;
 }
 
-.share-btn:hover, .share-btn:focus, .download-btn:hover, .download-btn:focus {
+.share-btn:hover,
+.share-btn:focus,
+.download-btn:hover,
+.download-btn:focus {
     border: solid black 1px;
 }
 
-.share-content, .download-content {
+.share-content,
+.download-content {
     display: none;
     position: absolute;
     top: 80px;
@@ -250,14 +262,16 @@ canvas {
     z-index: 1;
 }
 
-.share-content a, .download-content a {
+.share-content a,
+.download-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
-.share-content a:hover, .download-content a:hover {
+.share-content a:hover,
+.download-content a:hover {
     background-color: #ddd;
 }
 
@@ -266,7 +280,7 @@ canvas {
 }
 
 .fa-facebook:before {
-    color: #4167B2;
+    color: #4167b2;
     padding-right: 7px;
 }
 
@@ -274,7 +288,7 @@ canvas {
 
 .search-container {
     height: 100%;
-    background-color: #F7F7F9;
+    background-color: #f7f7f9;
     padding: 30px;
 }
 
@@ -304,7 +318,7 @@ canvas {
 
 .about-container {
     height: 100%;
-    background-color: #F7F7F9;
+    background-color: #f7f7f9;
     padding: 30px;
 }
 
@@ -327,7 +341,7 @@ canvas {
 .link {
     width: 39px;
     height: 39px;
-    background-color: #FF8360;
+    background-color: #ff8360;
     margin: 2px;
     border-radius: 12px;
     text-align: center;
@@ -337,20 +351,20 @@ canvas {
 .fab {
     vertical-align: middle;
     font-size: 25px;
-    color: #FCFAE1;
+    color: #fcfae1;
 }
 
 /* footer */
 
 footer {
-    background-color: #FF8360;
-    height: 150px;
+    background-color: #ff8360;
+    height: 120px;
     text-align: center;
     width: 100%;
 }
 
 footer .logo {
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 10px;
 }
 
@@ -398,10 +412,10 @@ footer .logo {
 }
 
 .flex-none {
-    flex: none
+    flex: none;
 }
 
-@media (max-width:986px) {
+@media (max-width: 1120px) {
     .meme-container {
         flex-direction: column;
         justify-content: center;
