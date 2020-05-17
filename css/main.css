@@ -221,7 +221,7 @@ canvas {
 }
 
 .georgia-font {
-    font-family: Georgia;
+    font-family: "Comic Sans MS";
 }
 
 .share-btn,
@@ -302,7 +302,6 @@ canvas {
 }
 
 .search-btn {
-    cursor: pointer;
     background-color: transparent;
     border: none;
     border-bottom: solid black 2px;
